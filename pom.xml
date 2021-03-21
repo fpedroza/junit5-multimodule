@@ -17,21 +17,22 @@
     <surefire.reuseForks>true</surefire.reuseForks>
     <logging.level>warn</logging.level>
 
-    <test.integration.tests>**/*IntegrationTest.java</test.integration.tests>
-    <test.excludes>${test.integration.tests}, **.uitest.**</test.excludes>
+    <automation.tests>**.uitest.**</automation.tests>
+    <integration.tests>**/*IntegrationTest.java</integration.tests>
+    <test.excludes>${integration.tests}, ${automation.tests}</test.excludes>
   </properties>
 
   <profiles>
       <profile>
           <id>test-integration</id>
           <properties>
-              <test>${test.integration.tests}</test>
+              <test>${integration.tests}</test>
           </properties>
       </profile>
       <profile>
           <id>test-automation</id>
           <properties>
-              <test>com.amirsys.**.uitest.**</test>
+              <test>${automation.tests}</test>
           </properties>
       </profile>
       <profile>
