@@ -1,15 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.amirsys</groupId>
   <artifactId>mvn-test</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>2.0</version>
+  
+  <!-- By setting packaging to pom type, we're declaring that project will serve as a parent or an aggregator – it won't produce further artifacts. -->
+  <packaging>pom</packaging>
 
-  <name>mvn-test</name>
-
+  <modules>
+    <module>subOne</module>
+    <module>subTwo</module>
+  </modules>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -21,28 +26,28 @@
     <integration.tests>**/*IntegrationTest.java</integration.tests>
     <test.excludes>${integration.tests}, ${automation.tests}</test.excludes>
   </properties>
-
+  
   <profiles>
-      <profile>
-          <id>test-integration</id>
-          <properties>
-              <test>${integration.tests}</test>
-          </properties>
-      </profile>
-      <profile>
-          <id>test-automation</id>
-          <properties>
-              <test>${automation.tests}</test>
-          </properties>
-      </profile>
-      <profile>
-          <id>test-all</id>
-          <properties>
-              <test>*</test>
-          </properties>
-      </profile>
+    <profile>
+      <id>test-integration</id>
+      <properties>
+        <test>${integration.tests}</test>
+      </properties>
+    </profile>
+    <profile>
+      <id>test-automation</id>
+      <properties>
+        <test>${automation.tests}</test>
+      </properties>
+    </profile>
+    <profile>
+      <id>test-all</id>
+      <properties>
+        <test>*</test>
+      </properties>
+    </profile>
   </profiles>
-
+  
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -51,9 +56,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
+  
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
+      <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
@@ -73,16 +79,16 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
           <configuration>
-              <excludes>
-                  <exclude>${test.excludes}</exclude>
-              </excludes>
-              <systemProperties>
-                  <property>
-                      <name>logging.level</name>
-                      <value>${logging.level}</value>
-                  </property>
-              </systemProperties>
-              <reuseForks>${surefire.reuseForks}</reuseForks>
+            <excludes>
+              <exclude>${test.excludes}</exclude>
+            </excludes>
+            <systemProperties>
+              <property>
+                <name>logging.level</name>
+                <value>${logging.level}</value>
+              </property>
+            </systemProperties>
+            <reuseForks>${surefire.reuseForks}</reuseForks>
           </configuration>
         </plugin>
         <plugin>
@@ -106,7 +112,12 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <artifactId>maven-versions-plugin</artifactId>
+          <version>2.8.1</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
+  
 </project>
