@@ -1,4 +1,4 @@
-package com.amirsys.mvntest;
+package com.amirsys.mvntest.subtwo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

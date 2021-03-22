@@ -1,6 +1,10 @@
-package com.amirsys.mvntest;
+package com.amirsys;
 
-public class App 
+/**
+ * Hello world!
+ *
+ */
+public class AppTwo 
 {
     public static void main( String[] args )
     {
